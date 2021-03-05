@@ -1,10 +1,18 @@
-# greenhouse_io changelog
+# greenhouse_io Changelog
+This project follows [semantic versioning](http://semver.org/).
+This changelog follows suggestions from [keepachangelog.com](http://keepachangelog.com/).
 
-This project follows [semantic versioning](http://semver.org/).  This changelog follows suggestions from [keepachangelog.com](http://keepachangelog.com/).
+## 3.1.0 - 2021-03-08
 
-## Version 3.0.0
+### Added
+- Method `custom_fields`
 
-#### Added
+### Changed
+- Use `#success?` instead of `== 200`
+
+## 3.0.0 - 2021-02-09
+
+### Added
 - Upped the Ruby version required to last supported branch: Ruby 2.5
 - Refreshed and relaxed gem versions requirements
 - Switched from HTTMultiParty (unsupported) to HTTParty since multipart uplodad is supported by HTTParty

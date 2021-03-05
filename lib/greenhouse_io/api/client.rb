@@ -84,6 +84,10 @@ module GreenhouseIo
       get_from_harvest_api "/sources#{path_id(id)}", options
     end
 
+    def custom_fields(field_type = nil, options = {})
+      get_from_harvest_api "/custom_fields#{path_id(field_type)}", options
+    end
+
     private
 
     def path_id(id = nil)
@@ -91,18 +95,18 @@ module GreenhouseIo
     end
 
     def permitted_options(options)
-      options.select { |key, value| PERMITTED_OPTIONS.include? key }
+      options.select { |key, _| PERMITTED_OPTIONS.include?(key) }
     end
 
     def get_from_harvest_api(url, options = {})
       response = get_response(url, {
-        :query => permitted_options(options),
-        :basic_auth => basic_auth
+        query: permitted_options(options),
+        basic_auth: basic_auth
       })
 
       set_headers_info(response.headers)
 
-      if response.code == 200
+      if response.success?
         parse_json(response)
       else
         raise GreenhouseIo::Error.new(response.code)
@@ -111,9 +115,9 @@ module GreenhouseIo
 
     def post_to_harvest_api(url, body, headers)
       response = post_response(url, {
-        :body => JSON.dump(body),
-        :basic_auth => basic_auth,
-        :headers => headers
+        body: JSON.dump(body),
+        basic_auth: basic_auth,
+        headers: headers
       })
 
       set_headers_info(response.headers)
