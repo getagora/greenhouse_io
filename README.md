@@ -168,26 +168,27 @@ You'll need to manually parse the `next` and `last` links to tell what the next 
 
 Methods for which an `id` is optional:
 
-* `offices`
-* `departments`
-* `candidates`
-* `applications`
-* `jobs`
-* `users`
-* `sources`
 * `all_scorecards`
+* `applications`
+* `candidates`
+* `custom_fields`
+* `departments`
+* `jobs`
 * `offers`
+* `offices`
+* `sources`
+* `users`
 
 Methods for which an `id` is **required**:
 
 * `activity_feed` *(requires a candidate ID)*
-* `scorecards` *(requires an application ID)*
-* `scheduled_interviews` *(requires an application ID)*
-* `offers_for_application` *(requires an application ID)*
-* `current_offer_for_application` *(requires an application ID)*
-* `stages` *(requires a job ID)*
-* `job_post` *(requires a job ID)*
 * `create_candidate_note` *(requires a candidate ID)*
+* `current_offer_for_application` *(requires an application ID)*
+* `job_post` *(requires a job ID)*
+* `offers_for_application` *(requires an application ID)*
+* `scheduled_interviews` *(requires an application ID)*
+* `scorecards` *(requires an application ID)*
+* `stages` *(requires a job ID)*
 
 ## Contributing
 
