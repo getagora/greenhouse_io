@@ -5,11 +5,12 @@ module GreenhouseIo
 
     PERMITTED_OPTIONS = [:page, :per_page, :job_id]
 
-    attr_accessor :api_token, :rate_limit, :rate_limit_remaining, :link
+    attr_accessor :api_token, :on_behalf_of, :rate_limit, :rate_limit_remaining, :link
     base_uri 'https://harvest.greenhouse.io/v1'
 
-    def initialize(api_token = nil)
+    def initialize(api_token = nil, on_behalf_of = nil)
       @api_token = api_token || GreenhouseIo.configuration.api_token
+      @on_behalf_of = on_behalf_of || GreenhouseIo.configuration.on_behalf_of
     end
 
     def offices(id = nil, options = {})
@@ -32,11 +33,11 @@ module GreenhouseIo
       get_from_harvest_api "/candidates/#{id}/activity_feed", options
     end
 
-    def create_candidate_note(candidate_id, note_hash, on_behalf_of)
+    def create_candidate_note(candidate_id, note_hash, on_behalf_of = nil)
       post_to_harvest_api(
         "/candidates/#{candidate_id}/activity_feed/notes",
         note_hash,
-        { 'On-Behalf-Of' => on_behalf_of.to_s }
+        on_behalf_of
       )
     end
 
@@ -88,6 +89,14 @@ module GreenhouseIo
       get_from_harvest_api "/custom_fields#{path_id(field_type)}", options
     end
 
+    def create_custom_field(custom_field_hash, on_behalf_of = nil)
+      post_to_harvest_api(
+        "/custom_fields",
+        custom_field_hash,
+        on_behalf_of
+      )
+    end
+
     private
 
     def path_id(id = nil)
@@ -104,27 +113,34 @@ module GreenhouseIo
         basic_auth: basic_auth
       })
 
-      set_headers_info(response.headers)
-
-      if response.success?
-        parse_json(response)
-      else
-        raise GreenhouseIo::Error.new(response.code)
-      end
+      receive(response)
     end
 
-    def post_to_harvest_api(url, body, headers)
+    def post_to_harvest_api(url, body, on_behalf_of = nil, headers = {})
+      headers.merge!(
+        {
+          'Content-Type' => 'application/json',
+          'On-Behalf-Of' => (on_behalf_of || @on_behalf_of).to_s
+        }
+      )
+
       response = post_response(url, {
         body: JSON.dump(body),
         basic_auth: basic_auth,
         headers: headers
       })
 
+      receive(response)
+    end
+
+    def receive(response)
       set_headers_info(response.headers)
 
       if response.success?
         parse_json(response)
       else
+        raise GreenhouseIo::Error.new(response.dig('errors', 0, 'message'), response.code) if response.respond_to?(:dig)
+
         raise GreenhouseIo::Error.new(response.code)
       end
     end

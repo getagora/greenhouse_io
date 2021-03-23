@@ -2,10 +2,25 @@
 This project follows [semantic versioning](http://semver.org/).
 This changelog follows suggestions from [keepachangelog.com](http://keepachangelog.com/).
 
+## 3.2.0 - 2021-03-23
+
+### Added
+- Method `create_custom_field` from [@capripot](https://github.com/capripot)
+- Support for `on_behalf_of` from [@capripot](https://github.com/capripot)
+  - In configuration `GreenhouseIo.configure { |config| config.on_behalf_of = 123 }`
+  - As an injection `GreenhouseIo::Client.new(api_key, on_behalf_of)`
+
+### Changed
+- Updated dev dependencies
+- POST requests now have `Content-type: application/json` header by default
+- `GreenhouseIo::Error` now contains the actual error message returned by API, with the HTTP Status avaiable via `#code` and in parenthesis. E.g.:
+  - `GreenhouseIo::Error.new(nil, 404).message # => "404"`
+  - `GreenhouseIo::Error.new("Unrecognized field type", 422).message # => "Unrecognized field type (Status 422)"`
+
 ## 3.1.0 - 2021-03-08
 
 ### Added
-- Method `custom_fields`
+- Method `custom_fields` from [@capripot](https://github.com/capripot)
 
 ### Changed
 - Use `#success?` instead of `== 200`

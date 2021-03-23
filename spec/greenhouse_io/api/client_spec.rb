@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe GreenhouseIo::Client do
+RSpec.describe GreenhouseIo::Client do
 
   FAKE_API_TOKEN = '123FakeToken'
 
@@ -673,6 +673,53 @@ describe GreenhouseIo::Client do
         expect(@offer[:created_at]).to be_a(String)
         expect(@offer[:version]).to be_a(Integer).and be > 0
         expect(@offer[:status]).to be_a(String)
+      end
+    end
+
+    describe "#create_custom_field" do
+      let(:custom_field) do
+        {
+          name: "Salary",
+          field_type: "offer",
+          value_type: "currency",
+          required: true,
+          trigger_new_version: true
+        }
+      end
+
+      it "posts a custom field" do
+        VCR.use_cassette('client/create_custom_fields') do
+          create_custom_fields = @client.create_custom_field(custom_field, 4163536003)
+
+          expect(create_custom_fields).to_not be_nil
+          expect(create_custom_fields).to include(
+            active: true,
+            api_only: false,
+            custom_field_options: [],
+            departments: [],
+            description: nil,
+            expose_in_job_board_api: false,
+            field_type: "offer",
+            id: 5698659003,
+            name: "Salary",
+            name_key: "salary_offer_1616501198.9645488",
+            offices: [],
+            priority: 9,
+            private: true,
+            require_approval: false,
+            required: true,
+            template_token_string: nil,
+            trigger_new_version: true,
+            value_type: "currency"
+          )
+        end
+      end
+
+      it "errors when given invalid On-Behalf-Of id" do
+        VCR.use_cassette('client/create_custom_fields_invalid_on_behalf_of') do
+          expect { @client.create_custom_field(custom_field, 99) }
+            .to raise_error(GreenhouseIo::Error, "404")
+        end
       end
     end
   end
