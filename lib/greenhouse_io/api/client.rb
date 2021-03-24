@@ -21,6 +21,10 @@ module GreenhouseIo
       get_from_harvest_api "/offers#{path_id(id)}", options
     end
 
+    def update_offer(id, options = {})
+      patch_from_harvest_api "/offers/#{id}", options
+    end
+
     def departments(id = nil, options = {})
       get_from_harvest_api "/departments#{path_id(id)}", options
     end
@@ -125,6 +129,23 @@ module GreenhouseIo
       )
 
       response = post_response(url, {
+        body: JSON.dump(body),
+        basic_auth: basic_auth,
+        headers: headers
+      })
+
+      receive(response)
+    end
+
+    def patch_to_harvest_api(url, body, on_behalf_of = nil, headers = {})
+      headers.merge!(
+        {
+          'Content-Type' => 'application/json',
+          'On-Behalf-Of' => (on_behalf_of || @on_behalf_of).to_s
+        }
+      )
+
+      response = patch_response(url, {
         body: JSON.dump(body),
         basic_auth: basic_auth,
         headers: headers
