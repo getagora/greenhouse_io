@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe GreenhouseIo::JobBoard do
+RSpec.describe GreenhouseIo::JobBoard do
 
   it "should have a base url for an API endpoint" do
     expect(GreenhouseIo::JobBoard.base_uri).to eq("https://api.greenhouse.io/v1")

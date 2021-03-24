@@ -13,7 +13,7 @@ module GreenhouseIo
     end
 
     def basic_auth
-      { :username => self.api_token }
+      { username: self.api_token }
     end
   end
 end

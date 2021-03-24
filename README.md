@@ -31,9 +31,10 @@ Here is an example `config/initializers/greenhouse_io.rb` file used in a Rails a
 
 ```ruby
 GreenhouseIo.configure do |config|
-	config.symbolize_keys = true # set response keys as strings or symbols, default is false
-	config.organization = 'General Assembly'
-	config.api_token = ENV['GREENHOUSE_API_TOKEN']
+  config.symbolize_keys = true # set response keys as strings or symbols, default is false
+  config.organization = 'General Assembly'
+  config.api_token = ENV['GREENHOUSE_API_TOKEN']
+  config.on_behalf_of = ENV['GREENHOUSE_ON_BEHALF_OF'] # default user id for create operations
 end
 ```
 
@@ -129,12 +130,26 @@ Use this method to attach a new note to a candidate.
 candidate_id = 4567
 author_id = 123 # ID of the user who wrote this note
 note = {
-  :user_id => 123,
-  :message => "This candidate has very strong opinions about Node.JS.",
-  :visibility => "public"
+  user_id: 123,
+  message: "This candidate has very strong opinions about Node.JS.",
+  visibility: "public"
 }
 
 gh_client.create_candidate_note(candidate_id, note, author_id)
+```
+
+#### Creating a custom field
+Use this method to [create a custom field](https://developers.greenhouse.io/harvest.html#post-create-custom-field).
+
+```ruby
+author_id = 123 # ID of the user who creates the custom field
+custom_field = {
+  name: "Salary",
+  field_type: "offer",
+  value_type: "currency"
+}
+
+gh_client.create_custom_field(custom_field, author_id)
 ```
 
 #### Throttling
