@@ -22,6 +22,14 @@ describe GreenhouseIo::Error do
       end
     end
 
+    context "when response is set" do
+      it "makes response accessible" do
+        gem_error = GreenhouseIo::Error.new("organization can't be blank", 422, "response")
+
+        expect(gem_error.response).to eq("response")
+      end
+    end
+
   end
 
 end

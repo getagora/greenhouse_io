@@ -139,9 +139,11 @@ module GreenhouseIo
       if response.success?
         parse_json(response)
       else
-        raise GreenhouseIo::Error.new(response.dig('errors', 0, 'message'), response.code) if response.respond_to?(:dig)
-
-        raise GreenhouseIo::Error.new(response.code)
+        if response.respond_to?(:dig)
+          raise GreenhouseIo::Error.new(response.dig('errors', 0, 'message'), response.code, response)
+        else
+          raise GreenhouseIo::Error.new(response.code, response.code, response)
+        end
       end
     end
 

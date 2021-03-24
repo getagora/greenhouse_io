@@ -1,11 +1,12 @@
 require 'pry'
 module GreenhouseIo
   class Error < StandardError
-    attr_reader :code
+    attr_reader :code, :response
 
-    def initialize(message = nil, code = nil)
+    def initialize(message = nil, code = nil, response = nil)
       @message = message
       @code = code
+      @response = response
     end
 
     def message
