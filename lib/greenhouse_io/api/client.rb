@@ -21,11 +21,7 @@ module GreenhouseIo
       get_from_harvest_api "/offers#{path_id(id)}", options
     end
 
-    def current_offer(application_id, options = {})
-      get_from_harvest_api "/applications/#{application_id}/offers/current_offer", options
-    end
-
-    def update_current_offer(application_id, options = {})
+    def update_current_offer_for_application(application_id, options = {})
       patch_to_harvest_api "/applications/#{application_id}/offers/current_offer", options
     end
 

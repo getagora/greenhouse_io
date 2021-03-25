@@ -5,8 +5,7 @@ This changelog follows suggestions from [keepachangelog.com](http://keepachangel
 ## 3.3.0 - 2021-03-24
 
 ### Added
-- Method `current_offer` from [@capripot](https://github.com/capripot)
-- Method `update_current_offer` from [@capripot](https://github.com/capripot)
+- Method `update_current_offer_for_application` from [@capripot](https://github.com/capripot)
 
 ## 3.2.0 - 2021-03-23
 
