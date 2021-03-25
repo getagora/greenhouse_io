@@ -181,6 +181,8 @@ You'll need to manually parse the `next` and `last` links to tell what the next 
 
 #### Available methods
 
+* `create_custom_field`
+
 Methods for which an `id` is optional:
 
 * `all_scorecards`
@@ -204,6 +206,7 @@ Methods for which an `id` is **required**:
 * `scheduled_interviews` *(requires an application ID)*
 * `scorecards` *(requires an application ID)*
 * `stages` *(requires a job ID)*
+* `update_current_offer_for_application` *(requires an application ID)*
 
 ## Contributing
 

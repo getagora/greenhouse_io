@@ -2,6 +2,11 @@
 This project follows [semantic versioning](http://semver.org/).
 This changelog follows suggestions from [keepachangelog.com](http://keepachangelog.com/).
 
+## 3.3.0 - 2021-03-24
+
+### Added
+- Method `update_current_offer_for_application` from [@capripot](https://github.com/capripot)
+
 ## 3.2.0 - 2021-03-23
 
 ### Added
