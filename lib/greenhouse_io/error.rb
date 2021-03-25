@@ -1,4 +1,3 @@
-require 'pry'
 module GreenhouseIo
   class Error < StandardError
     attr_reader :code, :response

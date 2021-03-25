@@ -21,8 +21,8 @@ module GreenhouseIo
       get_from_harvest_api "/offers#{path_id(id)}", options
     end
 
-    def update_offer(id, options = {})
-      patch_from_harvest_api "/offers/#{id}", options
+    def update_current_offer(application_id, options = {})
+      patch_to_harvest_api "/applications/#{application_id}/offers/current_offer", options
     end
 
     def departments(id = nil, options = {})
