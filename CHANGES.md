@@ -2,6 +2,11 @@
 This project follows [semantic versioning](http://semver.org/).
 This changelog follows suggestions from [keepachangelog.com](http://keepachangelog.com/).
 
+## 3.4.0 - 2021-09-15
+
+### Added
+- Method `mark_applcation_as_hired`
+
 ## 3.3.0 - 2021-03-24
 
 ### Added
