@@ -49,6 +49,10 @@ module GreenhouseIo
       get_from_harvest_api "/applications#{path_id(id)}", options
     end
 
+    def mark_application_as_hired(application_id, options = {})
+      post_to_harvest_api "/applications/#{application_id}/hire", options
+    end
+
     def offers_for_application(id, options = {})
       get_from_harvest_api "/applications/#{id}/offers", options
     end
