@@ -3,6 +3,12 @@
 This project follows [semantic versioning](http://semver.org/).
 This changelog follows suggestions from [keepachangelog.com](http://keepachangelog.com/).
 
+## 3.5.2 - 2022-02-10
+
+### Added
+
+- Custom Field options endpoints for create, update, and delete
+
 ## 3.5.1 - 2022-02-10
 
 ### Fixed
