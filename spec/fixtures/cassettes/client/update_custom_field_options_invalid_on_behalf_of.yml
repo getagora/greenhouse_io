@@ -1,0 +1,51 @@
+---
+http_interactions:
+  - request:
+      method: patch
+      uri: https://harvest.greenhouse.io/v1/custom_field/8284871003/custom_field_options
+      body:
+        encoding: UTF-8
+        string:
+          '{"options":[{"id":123,"name":"Option D","priority":5},{"id":234,"name":"Option
+          E","priority":6},{"id":456,"name":"Option F","priority":7}]}'
+      headers:
+        Content-Type:
+          - application/json
+        On-Behalf-Of:
+          - "99"
+        Accept-Encoding:
+          - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+        Accept:
+          - "*/*"
+        User-Agent:
+          - Ruby
+    response:
+      status:
+        code: 404
+        message: Not Found
+      headers:
+        Date:
+          - Thu, 10 Feb 2022 22:39:10 GMT
+        Content-Type:
+          - application/json;charset=utf-8
+        Content-Length:
+          - "32"
+        Connection:
+          - keep-alive
+        Status:
+          - 404 Not Found
+        X-Ratelimit-Limit:
+          - "50"
+        X-Ratelimit-Remaining:
+          - "49"
+        X-Content-Type-Options:
+          - nosniff
+        X-Request-Id:
+          - 8cfabeb332d84261aa8cce693c289862
+        Strict-Transport-Security:
+          - max-age=15724800; includeSubDomains
+      body:
+        encoding: UTF-8
+        string: '{"message":"Resource not found"}'
+    recorded_at: Thu, 10 Feb 2022 22:39:10 GMT
+recorded_with: VCR 6.0.0

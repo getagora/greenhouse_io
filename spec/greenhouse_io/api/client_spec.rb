@@ -775,10 +775,10 @@ RSpec.describe GreenhouseIo::Client do
 
       it "updates a custom field" do
         VCR.use_cassette('client/update_custom_fields') do
-          create_custom_fields = @client.update_custom_field(8284871003, custom_field, 4384877003)
+          update_custom_fields = @client.update_custom_field(8284871003, custom_field, 4384877003)
 
-          expect(create_custom_fields).to_not be_nil
-          expect(create_custom_fields).to include(
+          expect(update_custom_fields).to_not be_nil
+          expect(update_custom_fields).to include(
             active: true,
             api_only: false,
             custom_field_options: [],
@@ -808,6 +808,105 @@ RSpec.describe GreenhouseIo::Client do
         end
       end
     end
-  end
 
+    describe "#update_custom_field_options" do
+      let(:custom_field_options) do
+        {
+          options: [{
+            "id": 123,
+            "name": "Option D",
+            "priority": 5
+          },
+          {
+            "id": 234,
+            "name": "Option E",
+            "priority": 6
+          },
+          {
+            "id": 345,
+            "name": "Option F",
+            "priority": 7
+          }]
+        }
+      end
+  
+      it "updates a custom field's options" do
+        VCR.use_cassette('client/update_custom_field_options') do
+          update_custom_field_options = @client.update_custom_field_options(8284871003, custom_field_options, 4384877003)
+  
+          expect(update_custom_field_options).to_not be_nil
+          expect(update_custom_field_options).to include({success: true})
+        end
+      end
+  
+      it "errors when given invalid On-Behalf-Of id" do
+        VCR.use_cassette('client/update_custom_field_options_invalid_on_behalf_of') do
+          expect { @client.update_custom_field_options(8284871003, custom_field_options, 99) }
+            .to raise_error(GreenhouseIo::Error, "404")
+        end
+      end
+    end
+
+    describe "#delete_custom_field_options" do
+      let(:custom_field_options) do
+        {
+          option_ids: [123, 234, 345]
+        }
+      end
+  
+      it "deletes a custom field's options" do
+        VCR.use_cassette('client/delete_custom_field_options') do
+          delete_custom_field_options = @client.delete_custom_field_options(8284871003, custom_field_options, 4384877003)
+  
+          expect(delete_custom_field_options).to_not be_nil
+          expect(delete_custom_field_options).to include({success: "3 option(s) deleted. 0 option(s) not found.",})
+        end
+      end
+  
+      it "errors when given invalid On-Behalf-Of id" do
+        VCR.use_cassette('client/delete_custom_field_options_invalid_on_behalf_of') do
+          expect { @client.delete_custom_field_options(8284871003, custom_field_options, 99) }
+            .to raise_error(GreenhouseIo::Error, "404")
+        end
+      end
+    end
+
+    describe "#create_custom_field_options" do
+      let(:custom_field_options) do
+        {
+          options: [{
+            "name": "Option A",
+            "priority": 5,
+            "external_id": "3z84k11"
+          },
+          {
+            "name": "Option B",
+            "priority": 6,
+            "external_id": "null"
+          },
+          {
+            "name": "Option C",
+            "priority": 7,
+            "external_id": "32290"
+          }]
+        }
+      end
+
+      it "creates a custom field's options" do
+        VCR.use_cassette('client/create_custom_field_options') do
+          create_custom_field_options = @client.create_custom_field_options(8284871003, custom_field_options, 4384877003)
+
+          expect(create_custom_field_options).to_not be_nil
+          expect(create_custom_field_options).to include({ success: true })
+        end
+      end
+
+      it "errors when given invalid On-Behalf-Of id" do
+        VCR.use_cassette('client/create_custom_field_options_invalid_on_behalf_of') do
+          expect { @client.create_custom_field_options(8284871003, custom_field_options, 99) }
+            .to raise_error(GreenhouseIo::Error, "404")
+        end
+      end
+    end
+  end
 end
