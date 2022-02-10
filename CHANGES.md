@@ -3,6 +3,12 @@
 This project follows [semantic versioning](http://semver.org/).
 This changelog follows suggestions from [keepachangelog.com](http://keepachangelog.com/).
 
+## 3.5.1 - 2022-02-10
+
+### Fixed
+
+- Update custom endpoint works correctly now
+
 ## 3.5.0 - 2022-02-10
 
 ### Added

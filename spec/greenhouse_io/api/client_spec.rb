@@ -121,6 +121,48 @@ RSpec.describe GreenhouseIo::Client do
       end
     end
 
+    describe "#custom_fields" do
+      context "given no id" do
+        before do
+          VCR.use_cassette('client/custom_fields') do
+            @custom_fields_response = @client.custom_fields
+          end
+        end
+
+        it "returns a response" do
+          expect(@custom_fields_response).to_not be_nil
+        end
+
+        it "returns an array of custom_fields" do
+          expect(@custom_fields_response).to be_an_instance_of(Array)
+        end
+
+        it "returns office details" do
+          expect(@custom_fields_response.first).to have_key(:name)
+        end
+      end
+
+      context "given an id" do
+        before do
+          VCR.use_cassette('client/custom_field') do
+            @custom_field_response = @client.custom_fields(5698659003)
+          end
+        end
+
+        it "returns a response" do
+          expect(@custom_field_response).to_not be_nil
+        end
+
+        it "returns a custom_field hash" do
+          expect(@custom_field_response).to be_an_instance_of(Hash)
+        end
+
+        it "returns a custom_field's details" do
+          expect(@custom_field_response).to have_key(:name)
+        end
+      end
+    end
+
     describe "#departments" do
       context "given no id" do
         before do
@@ -726,17 +768,14 @@ RSpec.describe GreenhouseIo::Client do
     describe "#update_custom_field" do
       let(:custom_field) do
         {
-          name: "Salary",
-          field_type: "offer",
-          value_type: "currency",
-          required: true,
-          trigger_new_version: true
+          name: "Salary Test",
+          description: "A new description",
         }
       end
 
-      it "posts a custom field" do
+      it "updates a custom field" do
         VCR.use_cassette('client/update_custom_fields') do
-          create_custom_fields = @client.update_custom_field(5698659003,custom_field, 4163536003)
+          create_custom_fields = @client.update_custom_field(8284871003, custom_field, 4384877003)
 
           expect(create_custom_fields).to_not be_nil
           expect(create_custom_fields).to include(
@@ -744,10 +783,10 @@ RSpec.describe GreenhouseIo::Client do
             api_only: false,
             custom_field_options: [],
             departments: [],
-            description: nil,
+            description: "A new description",
             expose_in_job_board_api: false,
             field_type: "offer",
-            id: 5698659003,
+            id: 8284871003,
             name: "Salary",
             name_key: "salary_offer_1616501198.9645488",
             offices: [],
@@ -763,8 +802,8 @@ RSpec.describe GreenhouseIo::Client do
       end
 
       it "errors when given invalid On-Behalf-Of id" do
-        VCR.use_cassette('client/create_custom_fields_invalid_on_behalf_of') do
-          expect { @client.create_custom_field(custom_field, 99) }
+        VCR.use_cassette('client/update_custom_fields_invalid_on_behalf_of') do
+          expect { @client.update_custom_field(5698659003, custom_field, 99) }
             .to raise_error(GreenhouseIo::Error, "404")
         end
       end
