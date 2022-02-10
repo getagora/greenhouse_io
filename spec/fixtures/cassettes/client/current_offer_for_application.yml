@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://123FakeToken:@harvest.greenhouse.io/v1/applications/123/offers/current_offer
+    uri: https://harvest.greenhouse.io/v1/applications/123/offers/current_offer
     body:
       encoding: US-ASCII
       string: ''

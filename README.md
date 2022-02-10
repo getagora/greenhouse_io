@@ -45,11 +45,13 @@ Greenhouse's two APIs, **[Harvest](https://app.greenhouse.io/configure/dev_cente
 ### GreenhouseIo::JobBoard
 
 Creating an instance of the JobBoard client:
+
 ```ruby
 gh = GreenhouseIo::JobBoard.new("api_token", organization: "your_organization")
 ```
 
 If you've configured the gem with a default `organization` and `api_token`, then you can just instantiate the class.
+
 ```ruby
 gh = GreenhouseIo::JobBoard.new
 ```
@@ -57,6 +59,7 @@ gh = GreenhouseIo::JobBoard.new
 `api_token` is only required for `#apply_to_job` and `organization` is also optional during initialization if an organization is passed in during method requests.
 
 #### Fetching Office Data
+
 ```ruby
 gh.offices
 gh.offices(organization: 'different_organization')
@@ -70,6 +73,7 @@ gh.office(id, organization: 'different_organization')
 ```
 
 #### Fetching Department Data
+
 ```ruby
 gh.departments
 gh.departments(organization: 'different_organizaton')
@@ -81,6 +85,7 @@ gh.department(id, organization: 'different_organization')
 ```
 
 #### Fetching Job Data
+
 ```ruby
 gh.jobs
 gh.jobs(content: 'true')
@@ -96,7 +101,9 @@ gh.job(id, organization: 'different_organization')
 ```
 
 #### Submitting a Job Application
+
 This is the only API method that **requires** an API token from Greenhouse
+
 ```ruby
 gh.apply_to_job(form_parameter_hash)
 
@@ -108,11 +115,13 @@ gh.apply_to_job(form_parameter_hash)
 ### GreenhouseIo::Client
 
 Creating an instance of the API client:
+
 ```ruby
 gh_client = GreenhouseIo::Client.new("api_token")
 ```
 
 If you've configured the gem with a default `api_token`, then you can just instantiate the class.
+
 ```ruby
 gh_client = GreenhouseIo::Client.new
 ```
@@ -124,6 +133,7 @@ gh_client.candidates
 ```
 
 #### Creating a candidate note
+
 Use this method to attach a new note to a candidate.
 
 ```ruby
@@ -139,6 +149,7 @@ gh_client.create_candidate_note(candidate_id, note, author_id)
 ```
 
 #### Creating a custom field
+
 Use this method to [create a custom field](https://developers.greenhouse.io/harvest.html#post-create-custom-field).
 
 ```ruby
@@ -181,33 +192,36 @@ You'll need to manually parse the `next` and `last` links to tell what the next 
 
 #### Available methods
 
-* `create_custom_field`
+Methods for which no `id` should be passed:
+
+- `create_custom_field`
 
 Methods for which an `id` is optional:
 
-* `all_scorecards`
-* `applications`
-* `candidates`
-* `custom_fields`
-* `departments`
-* `jobs`
-* `offers`
-* `offices`
-* `sources`
-* `users`
+- `all_scorecards`
+- `applications`
+- `candidates`
+- `custom_fields`
+- `departments`
+- `jobs`
+- `offers`
+- `offices`
+- `sources`
+- `users`
 
 Methods for which an `id` is **required**:
 
-* `activity_feed` *(requires a candidate ID)*
-* `create_candidate_note` *(requires a candidate ID)*
-* `current_offer_for_application` *(requires an application ID)*
-* `job_post` *(requires a job ID)*
-* `offers_for_application` *(requires an application ID)*
-* `scheduled_interviews` *(requires an application ID)*
-* `scorecards` *(requires an application ID)*
-* `stages` *(requires a job ID)*
-* `update_current_offer_for_application` *(requires an application ID)*
-* `mark_application_as_hired` *(requires an application ID)*
+- `activity_feed` _(requires a candidate ID)_
+- `create_candidate_note` _(requires a candidate ID)_
+- `current_offer_for_application` _(requires an application ID)_
+- `job_post` _(requires a job ID)_
+- `offers_for_application` _(requires an application ID)_
+- `scheduled_interviews` _(requires an application ID)_
+- `scorecards` _(requires an application ID)_
+- `stages` _(requires a job ID)_
+- `update_current_offer_for_application` _(requires an application ID)_
+- `mark_application_as_hired` _(requires an application ID)_
+- `update_custom_field` _(requires a custom field ID)_
 
 ## Contributing
 

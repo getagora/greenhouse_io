@@ -105,6 +105,15 @@ module GreenhouseIo
       )
     end
 
+    def update_custom_field(custom_field_id, custom_field_hash, on_behalf_of = nil)
+      post_to_harvest_api(
+        "/custom_fields/#{custom_field_id}",
+        custom_field_hash,
+        on_behalf_of
+      )
+    end
+
+
     private
 
     def path_id(id = nil)
