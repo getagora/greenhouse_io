@@ -1,0 +1,47 @@
+---
+http_interactions:
+  - request:
+      method: get
+      uri: https://harvest.greenhouse.io/v1/custom_field/5698659003
+      body:
+        encoding: US-ASCII
+        string: ""
+      headers:
+        Accept-Encoding:
+          - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+        Accept:
+          - "*/*"
+        User-Agent:
+          - Ruby
+    response:
+      status:
+        code: 200
+        message: OK
+      headers:
+        Date:
+          - Thu, 10 Feb 2022 21:33:48 GMT
+        Content-Type:
+          - application/json;charset=utf-8
+        Transfer-Encoding:
+          - chunked
+        Connection:
+          - keep-alive
+        Vary:
+          - Accept-Encoding
+        Status:
+          - 200 OK
+        X-Ratelimit-Limit:
+          - "50"
+        X-Ratelimit-Remaining:
+          - "49"
+        X-Content-Type-Options:
+          - nosniff
+        X-Request-Id:
+          - 492f8f597454df542cd37812ef0a281a
+        Strict-Transport-Security:
+          - max-age=15724800; includeSubDomains
+      body:
+        encoding: ASCII-8BIT
+        string: '{"id":5698659003,"name":"Hello Salary","active":false,"field_type":"offer","priority":9,"value_type":"currency","private":true,"required":true,"require_approval":false,"trigger_new_version":true,"name_key":"hello_salary_offer_1616501198.9645488","description":null,"expose_in_job_board_api":false,"api_only":false,"offices":[],"departments":[],"template_token_string":null,"custom_field_options":[]}'
+    recorded_at: Thu, 10 Feb 2022 21:33:48 GMT
+recorded_with: VCR 6.0.0
