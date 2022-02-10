@@ -1,0 +1,49 @@
+---
+http_interactions:
+  - request:
+      method: delete
+      uri: https://harvest.greenhouse.io/v1/custom_field/8284871003/custom_field_options
+      body:
+        encoding: UTF-8
+        string: '{"option_ids":[123,234,345]}'
+      headers:
+        Content-Type:
+          - application/json
+        On-Behalf-Of:
+          - "4384877003"
+        Accept-Encoding:
+          - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+        Accept:
+          - "*/*"
+        User-Agent:
+          - Ruby
+    response:
+      status:
+        code: 200
+        message: OK
+      headers:
+        Date:
+          - Thu, 10 Feb 2022 22:43:56 GMT
+        Content-Type:
+          - application/json;charset=utf-8
+        Content-Length:
+          - "57"
+        Connection:
+          - keep-alive
+        Status:
+          - 200 OK
+        X-Ratelimit-Limit:
+          - "50"
+        X-Ratelimit-Remaining:
+          - "49"
+        X-Content-Type-Options:
+          - nosniff
+        X-Request-Id:
+          - 26247d0dc5e97e520c8a9236f8ca2971
+        Strict-Transport-Security:
+          - max-age=15724800; includeSubDomains
+      body:
+        encoding: UTF-8
+        string: '{"success":"3 option(s) deleted. 0 option(s) not found."}'
+    recorded_at: Thu, 10 Feb 2022 22:43:56 GMT
+recorded_with: VCR 6.0.0

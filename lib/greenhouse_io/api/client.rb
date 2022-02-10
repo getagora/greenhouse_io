@@ -117,6 +117,29 @@ module GreenhouseIo
       )
     end
 
+    def create_custom_field_options(custom_field_id, custom_field_option_hash, on_behalf_of = nil)
+      post_to_harvest_api(
+        "/custom_field#{path_id(custom_field_id)}/custom_field_options",
+        custom_field_option_hash,
+        on_behalf_of
+      )
+    end
+
+    def delete_custom_field_options(custom_field_id, custom_field_option_hash, on_behalf_of = nil)
+      delete_from_harvest_api(
+        "/custom_field#{path_id(custom_field_id)}/custom_field_options",
+        custom_field_option_hash,
+        on_behalf_of
+      )
+    end
+
+    def update_custom_field_options(custom_field_id, custom_field_option_hash, on_behalf_of = nil)
+      patch_to_harvest_api(
+        "/custom_field#{path_id(custom_field_id)}/custom_field_options",
+        custom_field_option_hash,
+        on_behalf_of
+      )
+    end
 
     private
 
@@ -146,6 +169,23 @@ module GreenhouseIo
       )
 
       response = post_response(url, {
+        body: JSON.dump(body),
+        basic_auth: basic_auth,
+        headers: headers
+      })
+
+      receive(response)
+    end
+
+    def delete_from_harvest_api(url, body, on_behalf_of = nil, headers = {})
+      headers.merge!(
+        {
+          'Content-Type' => 'application/json',
+          'On-Behalf-Of' => (on_behalf_of || @on_behalf_of).to_s
+        }
+      )
+
+      response = delete_response(url, {
         body: JSON.dump(body),
         basic_auth: basic_auth,
         headers: headers

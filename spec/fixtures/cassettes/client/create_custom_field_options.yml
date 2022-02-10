@@ -1,0 +1,51 @@
+---
+http_interactions:
+  - request:
+      method: post
+      uri: https://harvest.greenhouse.io/v1/custom_field/8284871003/custom_field_options
+      body:
+        encoding: UTF-8
+        string:
+          '{"options":[{"name":"Option A","priority":5,"external_id":"3z84k11"},{"name":"Option
+          B","priority":6,"external_id":"null"},{"name":"Option C","priority":7,"external_id":"32290"}]}'
+      headers:
+        Content-Type:
+          - application/json
+        On-Behalf-Of:
+          - "4384877003"
+        Accept-Encoding:
+          - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+        Accept:
+          - "*/*"
+        User-Agent:
+          - Ruby
+    response:
+      status:
+        code: 201
+        message: Created
+      headers:
+        Date:
+          - Thu, 10 Feb 2022 22:35:55 GMT
+        Content-Type:
+          - application/json;charset=utf-8
+        Content-Length:
+          - "16"
+        Connection:
+          - keep-alive
+        Status:
+          - 201 Created
+        X-Ratelimit-Limit:
+          - "50"
+        X-Ratelimit-Remaining:
+          - "47"
+        X-Content-Type-Options:
+          - nosniff
+        X-Request-Id:
+          - fa5a1122e1270c625ec892ae4ea30749
+        Strict-Transport-Security:
+          - max-age=15724800; includeSubDomains
+      body:
+        encoding: UTF-8
+        string: '{"success":true}'
+    recorded_at: Thu, 10 Feb 2022 22:35:55 GMT
+recorded_with: VCR 6.0.0
