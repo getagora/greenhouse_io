@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe GreenhouseIo::Configuration do
+RSpec.describe GreenhouseIo::Configuration do
   after { restore_default_config }
 
   context "when no symbolize_keys is specified" do
@@ -66,6 +66,28 @@ describe GreenhouseIo::Configuration do
 
     it "returns the specified value" do
       expect(GreenhouseIo.configuration.api_token).to eq('123FakeToken')
+    end
+  end
+
+  context "when no on behalf of is specified" do
+    before do
+      restore_default_config
+    end
+
+    it "returns nil" do
+      expect(GreenhouseIo.configuration.on_behalf_of).to be_nil
+    end
+  end
+
+  context "when given an api token" do
+    before do
+      GreenhouseIo.configure do |config|
+        config.on_behalf_of = 123
+      end
+    end
+
+    it "returns the specified value" do
+      expect(GreenhouseIo.configuration.on_behalf_of).to eq(123)
     end
   end
 end

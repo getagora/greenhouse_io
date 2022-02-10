@@ -8,7 +8,7 @@ Version](https://badge.fury.io/rb/greenhouse_io.png)](http://badge.fury.io/rb/gr
 
 A Ruby interface to
 [Greenhouse.io's](https://app.greenhouse.io/jobboard/jsonp_instructions)
-API (requires Ruby 1.9.3 or greater).
+API (requires Ruby 2.5 or greater).
 
 ## Installation
 
@@ -23,17 +23,18 @@ Or install it yourself as:
 ## API Documentation
 
 Documentation for the Harvest and Job Board web APIs can be found at [developers.greenhouse.io](https://developers.greenhouse.io).
-    
+
 ## Configuration
 
-You can assign default configuration values when using this gem.  
+You can assign default configuration values when using this gem.
 Here is an example `config/initializers/greenhouse_io.rb` file used in a Rails application:
 
 ```ruby
 GreenhouseIo.configure do |config|
-	config.symbolize_keys = true # set response keys as strings or symbols, default is false
-	config.organization = 'General Assembly'
-	config.api_token = ENV['GREENHOUSE_API_TOKEN']
+  config.symbolize_keys = true # set response keys as strings or symbols, default is false
+  config.organization = 'General Assembly'
+  config.api_token = ENV['GREENHOUSE_API_TOKEN']
+  config.on_behalf_of = ENV['GREENHOUSE_ON_BEHALF_OF'] # default user id for create operations
 end
 ```
 
@@ -129,12 +130,26 @@ Use this method to attach a new note to a candidate.
 candidate_id = 4567
 author_id = 123 # ID of the user who wrote this note
 note = {
-  :user_id => 123,
-  :message => "This candidate has very strong opinions about Node.JS.",
-  :visibility => "public"
+  user_id: 123,
+  message: "This candidate has very strong opinions about Node.JS.",
+  visibility: "public"
 }
 
 gh_client.create_candidate_note(candidate_id, note, author_id)
+```
+
+#### Creating a custom field
+Use this method to [create a custom field](https://developers.greenhouse.io/harvest.html#post-create-custom-field).
+
+```ruby
+author_id = 123 # ID of the user who creates the custom field
+custom_field = {
+  name: "Salary",
+  field_type: "offer",
+  value_type: "currency"
+}
+
+gh_client.create_custom_field(custom_field, author_id)
 ```
 
 #### Throttling
@@ -166,28 +181,32 @@ You'll need to manually parse the `next` and `last` links to tell what the next 
 
 #### Available methods
 
+* `create_custom_field`
+
 Methods for which an `id` is optional:
 
-* `offices`
-* `departments`
-* `candidates`
-* `applications`
-* `jobs`
-* `users`
-* `sources`
 * `all_scorecards`
+* `applications`
+* `candidates`
+* `custom_fields`
+* `departments`
+* `jobs`
 * `offers`
+* `offices`
+* `sources`
+* `users`
 
 Methods for which an `id` is **required**:
 
 * `activity_feed` *(requires a candidate ID)*
-* `scorecards` *(requires an application ID)*
-* `scheduled_interviews` *(requires an application ID)*
-* `offers_for_application` *(requires an application ID)*
-* `current_offer_for_application` *(requires an application ID)*
-* `stages` *(requires a job ID)*
-* `job_post` *(requires a job ID)*
 * `create_candidate_note` *(requires a candidate ID)*
+* `current_offer_for_application` *(requires an application ID)*
+* `job_post` *(requires a job ID)*
+* `offers_for_application` *(requires an application ID)*
+* `scheduled_interviews` *(requires an application ID)*
+* `scorecards` *(requires an application ID)*
+* `stages` *(requires a job ID)*
+* `update_current_offer_for_application` *(requires an application ID)*
 
 ## Contributing
 

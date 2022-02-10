@@ -8,12 +8,16 @@ module GreenhouseIo
       self.class.post(url, options)
     end
 
+    def patch_response(url, options)
+      self.class.patch(url, options)
+    end
+
     def parse_json(response)
       JSON.parse(response.body, symbolize_names: GreenhouseIo.configuration.symbolize_keys)
     end
 
     def basic_auth
-      { :username => self.api_token }
+      { username: self.api_token }
     end
   end
 end
