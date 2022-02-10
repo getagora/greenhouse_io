@@ -207,6 +207,7 @@ Methods for which an `id` is **required**:
 * `scorecards` *(requires an application ID)*
 * `stages` *(requires a job ID)*
 * `update_current_offer_for_application` *(requires an application ID)*
+* `mark_application_as_hired` *(requires an application ID)*
 
 ## Contributing
 
