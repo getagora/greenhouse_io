@@ -93,12 +93,12 @@ module GreenhouseIo
       get_from_harvest_api "/sources#{path_id(id)}", options
     end
 
+    def custom_field(id = nil, options = {})
+      get_from_harvest_api "/custom_field#{path_id(id)}", options
+    end
+
     def custom_fields(field_type = nil, options = {})
-      if field_type
-        get_from_harvest_api "/custom_field#{path_id(field_type)}", options
-      else
-        get_from_harvest_api "/custom_fields", options
-      end
+      get_from_harvest_api "/custom_fields#{path_id(field_type)}", options
     end
 
     def create_custom_field(custom_field_hash, on_behalf_of = nil)
