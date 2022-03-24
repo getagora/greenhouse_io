@@ -123,9 +123,10 @@ RSpec.describe GreenhouseIo::Client do
 
     describe "#custom_fields" do
       context "given no id" do
+        let(:page) { 1 }
         before do
           VCR.use_cassette('client/custom_fields') do
-            @custom_fields_response = @client.custom_fields
+            @custom_fields_response = @client.custom_fields(nil, { page: page })
           end
         end
 
@@ -137,7 +138,14 @@ RSpec.describe GreenhouseIo::Client do
           expect(@custom_fields_response).to be_an_instance_of(Array)
         end
 
-        it "returns office details" do
+        describe 'page 2' do
+          let(:page) { 2 }
+          it "paginates correctly" do
+            expect(@custom_fields_response).to be_an_instance_of(Array)
+          end
+        end
+
+        it "returns custom field details" do
           expect(@custom_fields_response.first).to have_key(:name)
         end
       end
@@ -145,7 +153,7 @@ RSpec.describe GreenhouseIo::Client do
       context "given an id" do
         before do
           VCR.use_cassette('client/custom_field') do
-            @custom_field_response = @client.custom_fields(5698659003)
+            @custom_field_response = @client.custom_field(5698659003)
           end
         end
 

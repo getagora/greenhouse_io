@@ -3,6 +3,12 @@
 This project follows [semantic versioning](http://semver.org/).
 This changelog follows suggestions from [keepachangelog.com](http://keepachangelog.com/).
 
+## 3.5.3 - 2022-03-24
+
+### Fixed
+
+- Custom Field endpoints
+
 ## 3.5.2 - 2022-02-10
 
 ### Added
