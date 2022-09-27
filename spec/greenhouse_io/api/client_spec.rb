@@ -2,7 +2,9 @@ require 'spec_helper'
 
 RSpec.describe GreenhouseIo::Client do
 
-  FAKE_API_TOKEN = '123FakeToken'
+  ATTACHMENT_BASE64 = File.open('spec/fixtures/files/base64_offer.txt').read
+
+  FAKE_API_TOKEN = '556ab2982efbac007f93825a57982cd5-3'
 
   it "should have a base url for an API endpoint" do
     expect(GreenhouseIo::Client.base_uri).to eq("https://harvest.greenhouse.io/v1")
@@ -723,6 +725,22 @@ RSpec.describe GreenhouseIo::Client do
         expect(@offer[:created_at]).to be_a(String)
         expect(@offer[:version]).to be_a(Integer).and be > 0
         expect(@offer[:status]).to be_a(String)
+      end
+    end
+
+    describe "#add_attachment_to_application" do
+      it "returns an offer object" do
+        document = { 
+            content_type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            content: ATTACHMENT_BASE64,
+            type: 'offer_letter',
+            filename: 'offer letter'
+        }
+        VCR.use_cassette('client/add_attachment_to_application') do
+          @attachment = @client.add_attachment_to_application(123, document, 4684617003)
+        end
+        expect(@attachment[:filename]).to eq('offer_letter')
+        expect(@attachment[:type]).to eq('offer_letter')
       end
     end
 
