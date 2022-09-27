@@ -4,7 +4,7 @@ RSpec.describe GreenhouseIo::Client do
 
   ATTACHMENT_BASE64 = File.open('spec/fixtures/files/base64_offer.txt').read
 
-  FAKE_API_TOKEN = '556ab2982efbac007f93825a57982cd5-3'
+  FAKE_API_TOKEN = '123FakeENV'
 
   it "should have a base url for an API endpoint" do
     expect(GreenhouseIo::Client.base_uri).to eq("https://harvest.greenhouse.io/v1")
