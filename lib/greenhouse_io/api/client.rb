@@ -25,6 +25,14 @@ module GreenhouseIo
       patch_to_harvest_api "/applications/#{application_id}/offers/current_offer", options
     end
 
+    def add_attachment_to_application(application_id, attachment_hash, on_behalf_of = nil)
+      post_to_harvest_api(
+        "/applications/#{application_id}/attachments", 
+        attachment_hash,
+        on_behalf_of
+      )
+    end
+
     def departments(id = nil, options = {})
       get_from_harvest_api "/departments#{path_id(id)}", options
     end
