@@ -3,6 +3,12 @@
 This project follows [semantic versioning](http://semver.org/).
 This changelog follows suggestions from [keepachangelog.com](http://keepachangelog.com/).
 
+## 3.5.4 - 2022-09-27
+
+### Added
+
+- Endpoint to upload atttachments to applications
+
 ## 3.5.3 - 2022-03-24
 
 ### Fixed
